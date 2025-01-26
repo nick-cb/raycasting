@@ -64,8 +64,13 @@ class Player {
   update() {
     this.rotationAngle += this.turnDirection * this.rotationSpeed;
     var moveStep = this.walkDirection * this.moveSpeed;
-    this.x += Math.cos(this.rotationAngle) * moveStep;
-    this.y += Math.sin(this.rotationAngle) * moveStep;
+    const x = Math.cos(this.rotationAngle) * moveStep;
+    const y = Math.sin(this.rotationAngle) * moveStep;
+    const colIdx = Math.floor((this.x + x + this.radius / 2) / TILE_SIZE);
+    const rowIdx = Math.floor((this.y + y + this.radius / 2) / TILE_SIZE);
+    if (grid.grid[rowIdx][colIdx] === 1) return;
+    this.x += x;
+    this.y += y;
   }
 }
 
